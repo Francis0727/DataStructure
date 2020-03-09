@@ -1,16 +1,17 @@
 #include <iostream>
+#include "SmartPointer.h"
 
-#include "Exception.h"
+using namespace DTLib;
 
 int main() {
-    try{
-       // 宏定义不受命名空间的约束,因此DTLib::THROW_EXCEPTION是错误的
-       THROW_EXCEPTION(DTLib::ArithmeticExcption,"创建对象发生异常");
+    DTLib::SmartPointer<int> sp = new int(12);
+    if (!sp.isNull()){
+        std::cout << "*sp: " << *sp << std::endl;
     }
-    catch(const DTLib::Exception& e){
-        std::cout << "location: " << e.location() << std::endl;
-        std::cout << "message: " << e.message() << std::endl;
-    }
-    
+
+    int* pt = sp.get();
+    *pt = 34;
+    std::cout << "sp: " << *sp << std::endl;
+       
     return 0;
 }
